@@ -6,6 +6,8 @@
 package grafostp2.Controlador;
 
 import grafos.Desenho.Graph;
+import grafostp2.EstruturaAuxiliares.Aresta;
+import grafostp2.EstruturaDados.Lista;
 import grafostp2.grafos.ArvoreGeradora;
 import grafostp2.grafos.BuscaLargura;
 import grafostp2.grafos.BuscaProfundidade;
@@ -58,8 +60,8 @@ public class Controlador {
         return Grafos.verificarCaminho(inicio, fim, rep, metodo);
     }
 
-    public String buscaLarguraString(int inicial, Boolean rep) {
-        return buscaL.buscaLarguraString(inicial, rep);
+    public String buscaLarguraString(int[] vet, int inicial, Boolean rep) {
+        return buscaL.buscaLarguraString(vet, inicial, rep);
     }
 
     public String buscaProfundidadeString(int inicial, Boolean rep) {
@@ -78,23 +80,23 @@ public class Controlador {
         return grafos.modificarArquivo();
     }
 
-    public String buscaProfundidadeConexo(Boolean ver) {
-        return buscaP.buscaProfundidadeConexo(ver);
+    public String buscaProfundidadeConexo(int[] comp, Boolean ver) {
+        return buscaP.buscaProfundidadeConexo(comp, ver);
     }
 
-    public String agmKruskal(Boolean rep) {
+    public ArrayList<Aresta> agmKruskal(Boolean rep) {
         return agm.agmKruskal(rep);
     }
 
-    public String agmPrim(Boolean rep) {
+    public ArrayList<Aresta> agmPrim(Boolean rep) {
         return agm.agmPrim(rep);
     }
 
-    public String dijkstra(Boolean rep, int inicial) {
+    public Lista[] dijkstra(Boolean rep, int inicial) {
         return camD.dijkstra(rep, inicial);
     }
 
-    public String bellman(Boolean rep, int inicial) {
+    public Lista[] bellman(Boolean rep, int inicial) {
         return camB.bellman(rep, inicial);
     }
 

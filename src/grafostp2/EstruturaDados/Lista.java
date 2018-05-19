@@ -32,6 +32,9 @@ public class Lista {
         return lista.get(i).getPeso();
     }
 
+    public void serLista(ArrayList<Vertice> lista){
+        this.lista = lista;
+    }
     public String imprimir() {
         String impressao = " ";
         int tam = lista.size();

@@ -5,6 +5,9 @@
  */
 package grafos.Desenho;
 
+import grafostp2.Desenho.Color.RainbowScale;
+import grafostp2.EstruturaAuxiliares.Aresta;
+import grafostp2.EstruturaDados.Lista;
 import grafostp2.grafos.Grafos;
 import static grafostp2.grafos.Grafos.graph;
 import java.awt.Color;
@@ -149,6 +152,124 @@ public class Visualizar extends javax.swing.JPanel {
         this.repaint();
     }
 
+    public void setEdgesTrueFalse(Boolean aux) {
+            for(Edge a :graph.edges){
+                a.setSelected(aux);
+            }
+    }
+
+    public void setVerticeTrueFalse(Boolean aux){
+        for(Vertex v: graph.vertex){
+            v.setSelected(aux);
+        }
+    }
+    public void caminho(ArrayList<String> caminho) {
+        int no, no2;
+        int x;
+        int y;
+        int i;
+        int tam = caminho.size();
+        for (Edge a : graph.edges) {
+            for (i = 0; i < tam - 1; i++) {
+                no = Integer.parseInt(caminho.get(i));
+                no2 = Integer.parseInt(caminho.get(i + 1));
+                x = a.getSource().getID();
+                y = a.getTarget().getID();
+                if ((no == x && no2 == y) || (x == no2 && y == no)) {
+                    a.setSelected(true);
+                }
+            }
+        }
+        this.cleanImage();
+        this.repaint();
+    }
+
+    public void compConexas(int[] vet) {
+        int i;
+        int coresComp = 255 / Grafos.tam;
+        RainbowScale cor = new RainbowScale();
+        for (i = 0; i < vet.length; i++) {
+            System.out.println(vet[i]);
+            Grafos.graph.getVertex().get(i).setColor(cor.getColor(vet[i] * coresComp));
+        }
+        this.cleanImage();
+        this.repaint();
+    }
+
+    public void arvoreGeradora(ArrayList<Aresta> array) {
+        int no, no2;
+        int x;
+        int y;
+        int i;
+        int tam = array.size();
+        for (Edge a : graph.edges) {
+            for (i = 0; i < tam; i++) {
+                no = array.get(i).getVer1();
+                no2 = array.get(i).getVer2();
+                x = a.getSource().getID();
+                y = a.getTarget().getID();
+                if ((no == x && no2 == y) || (x == no2 && y == no)) {
+                    a.setSelected(true);
+                }
+            }
+        }
+        this.cleanImage();
+        this.repaint();
+    }
+
+    public void caminhoMin(Lista[] array){
+        int no, no2;
+        int x;
+        int y;
+        int i, j, tamanho;
+        for (Edge a : graph.edges) {
+            for (i = 0; i <Grafos.tam; i++) {
+                tamanho = array[i].size();
+                for(j=1; j<tamanho; j++){                    
+                    no = array[i].getVer(j-1);
+                    //if(no != inicial){
+                        no2 = array[i].getVer(j);
+                        x = a.getSource().getID();
+                        y = a.getTarget().getID();
+                        if ((no == x && no2 == y) || (x == no2 && y == no)) {
+                            a.setSelected(true);
+                        }
+                    
+                }
+            }
+        }
+        this.cleanImage();
+        this.repaint();
+    }
+    
+    public void pintarArestas(int[] vet) {
+        int i;
+        int x;
+        int y;
+        for (Edge a : graph.edges) {
+            for (i = 0; i < vet.length; i++) {
+                //if(vet[i]!=-1){
+                x = a.getSource().getID();
+                y = a.getTarget().getID();
+                if ((i == x && vet[i] == y) || (x == vet[i] && y == i)) {
+                    a.setSelected(true);
+                }
+                //}
+            }
+        }
+        this.cleanImage();
+        this.repaint();
+    }
+
+    public void setCor(){
+        RainbowScale cor = new RainbowScale();
+        int colorStep = 255 / graph.vertex.size();
+        int i;
+        for (Vertex v: graph.vertex){
+            i = v.getID();
+            v.setColor(cor.getColor(i * colorStep));
+        }
+    }
     @Override
     public void setFont(java.awt.Font font) {
         //

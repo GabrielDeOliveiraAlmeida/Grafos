@@ -107,4 +107,18 @@ public class Graph {
             return new java.awt.Dimension(0, 0);
         }
     }    
+
+    public void setVertex(ArrayList<Vertex> vertex) {
+        this.vertex = vertex;
+    }
+
+    public void setEdges(ArrayList<Edge> edges) {
+        this.edges = edges;
+    }
+
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+    
+    
 }

@@ -142,15 +142,14 @@ public class BuscaProfundidade {
     }    
 
     
-    public String buscaProfundidadeConexo(Boolean ver) {
+    public String buscaProfundidadeConexo(int[] comp, Boolean ver) {
         VerticeP[] verP = new VerticeP[Grafos.tam];
-        int[] comp = new int[Grafos.tam];
 
         buscaProfundidadeConexo(verP, ver, comp);
         String impressao = "Vértice -> Componente\n";
 
         for (int i = 0; i < Grafos.tam; i++) {
-            impressao += String.valueOf(i) + " -> " + String.valueOf(comp[i]) + "\n";
+            impressao += String.valueOf(i) + " -> " + String.valueOf(comp[i]) + "\n"; 
         }
 
         return impressao;

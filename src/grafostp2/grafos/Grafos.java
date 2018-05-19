@@ -8,6 +8,7 @@ package grafostp2.grafos;
 import grafos.Desenho.Edge;
 import grafos.Desenho.Graph;
 import grafos.Desenho.Vertex;
+import grafostp2.EstruturaAuxiliares.Aresta;
 import grafostp2.EstruturaAuxiliares.Vertice;
 import grafostp2.EstruturaDados.Heap;
 import grafostp2.EstruturaDados.Lista;
@@ -38,6 +39,7 @@ public class Grafos {
     public final static int INF = 100000000;
     public static int or;
     public static Graph graph; 
+    public static Graph graphCopia;
     
     private File arquivo;
     private Scanner entrada;
@@ -81,6 +83,7 @@ public class Grafos {
                 or = entrada.nextInt();
                 tam = entrada.nextInt();
                 graph = new Graph(tam);
+                graphCopia = new Graph(tam);
             }
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Arquivo Não Encontrado OU Vazio, verifique-o antes de continuar", "ERRO", ERROR_MESSAGE);
@@ -157,13 +160,18 @@ public class Grafos {
             lista[numj].add(ver);
 
             verX = graph.getVertex().get(numi);
+            verX.setID(numi);
             verY = graph.getVertex().get(numj);
-            e= new Edge(verX, verY, peso);    
+            verY.setID(numj);
+            e= new Edge(verX, verY, peso);   
             graph.addEdge(e);
+            //e = new Edge(verY,verX,peso);
+            //graph.addEdge(e);
             
             matriz[numi][numj] = peso;
             matriz[numj][numi] = peso;
         }
+        clonarGraph();
     }
 
     private void montarDigrafo() {
@@ -177,7 +185,9 @@ public class Grafos {
             peso = entrada.nextInt();
             
             verX = graph.getVertex().get(numi);
+            verX.setID(numi);
             verY = graph.getVertex().get(numj);
+            verY.setID(numj);
             e= new Edge(verX, verY, peso);    
             graph.addEdge(e);
             
@@ -185,8 +195,13 @@ public class Grafos {
             lista[numi].add(ver);
             matriz[numi][numj] = peso;
         }
+        clonarGraph();
     }
 
+    private void clonarGraph(){
+        graphCopia.setEdges(graph.getEdges());
+        graphCopia.setVertex(graph.getVertex());
+    }
     public String imprimirLista() {
         String impressao = "VérticeOrigem -> VérticeDestino(Peso da Aresta) >/\n";
         if (lista == null) {
@@ -215,14 +230,16 @@ public class Grafos {
         return impressao;
     }
     
-        private static String imprimirVetor(ArrayList<String> caminho) {
+        private static void imprimirVetor(ArrayList<VerticeAGM> caminho, Lista cam){
         int i, tamanho = caminho.size();
         String ca = "";
+        VerticeAGM aux;
         for (i = 0; i < tamanho; i++) {
-            ca += caminho.get(i) + "->";
+            aux = caminho.get(i);
+            cam.add(new Vertice(aux.getPos(), aux.getPeso()));
         }
 
-        return ca + "/";
+ //       return ca + "/";
     }
 
     public static ArrayList<String> verificarCaminho(int inicio, int fim, Boolean rep, Boolean metodo) {
@@ -298,52 +315,65 @@ public class Grafos {
     }
 
 
-    public static void unir(Lista[] list, VerticeAGM u) {
+    public static void unir(ArrayList<Aresta> list, VerticeAGM u) {
         if (u.getPai() == -1) {
             return;
         }
-
-        Vertice ver = new Vertice(u.getPai(), u.getPeso());
-        list[u.getPos()].add(ver);
-        if (Grafos.or == 0) {
-            ver = new Vertice(u.getPos(), u.getPeso());
-            list[u.getPai()].add(ver);
-        }
+        System.out.println(u.getPos() + " "+ u.getPai());
+        list.add(new Aresta(u.getPos(),u.getPai(), u.getPeso()));
+        //list.add(u.getPos() + " " + u.getPai());
+        //Vertice ver = new Vertice(u.getPai(), u.getPeso());
+        //list[u.getPos()].add(ver);
+        
+        //list.add(u.getPos(), String.valueOf(u.getPai()));
+        //if (Grafos.or == 0) {
+           // ver = new Vertice(u.getPos(), u.getPeso());
+        //    list[u.getPai()].add(ver);
+        //list.add(u.getPai(), String.valueOf(u.getPos()));
+        
+       // }
     }
  
 
-    public static String recuperarCaminho(ArrayList<VerticeAGM> vetor, int inicio) {
+    public static Lista[] recuperarCaminho(ArrayList<VerticeAGM> vetor, int inicio ) {
+        Lista[] cam;
         String dist;
         String impressao = "Vértices (Distância) | Caminho\n";
-        ArrayList<String> caminho;
+        cam = new Lista[Grafos.tam];
+        for(int i=0;i<Grafos.tam; i++){
+            cam[i] = new Lista();
+        }
+        
+        ArrayList<VerticeAGM> caminho;
         for (int i = 0; i < tam; i++) {
             caminho = new ArrayList();
             recuperarCaminhoEstrutura(vetor, inicio, i, caminho, false);
-            if (vetor.get(i).getPeso() == INF) {
-                dist = "NA";
-            } else {
-                dist = String.valueOf(vetor.get(i).getPeso());
-            }
-
-            impressao += String.valueOf(i) + " (" + dist + ")\t|"
-                    + imprimirVetor(caminho) + "\n";
+            //if (vetor.get(i).getPeso() == INF) {
+            //    dist = "NA";
+            //} else {
+            //    dist = String.valueOf(vetor.get(i).getPeso());
+                
+            //}
+            imprimirVetor(caminho, cam[i]);
+            //impressao += String.valueOf(i) + " (" + dist + ")\t|"
+            //        + imprimirVetor(caminho, cam[i]) + "\n";
         }
-        impressao += "\n\nNA = Não Alcançável";
-        return impressao;
+        //impressao += "\n\nNA = Não Alcançável";
+        return cam;
     }
 
-    private static boolean recuperarCaminhoEstrutura(ArrayList<VerticeAGM> ver, int inicio, int fim, ArrayList<String> cami,
+    private static boolean recuperarCaminhoEstrutura(ArrayList<VerticeAGM> ver, int inicio, int fim, ArrayList<VerticeAGM> cami,
             Boolean troca) {
 
         boolean caminho = false;
         if (!troca) {
-            cami.add(String.valueOf(inicio));
+            cami.add(ver.get(inicio));
         }
         if ((ver.get(inicio).getPai() == fim) || (inicio == ver.get(fim).getPai())) {
             if (troca) {
-                cami.add(String.valueOf(inicio));
+                cami.add(ver.get(inicio));
             } else {
-                cami.add(String.valueOf(fim));
+                cami.add(ver.get(fim));
             }
             return true;
         } else if (ver.get(inicio) == ver.get(fim)) {
@@ -357,7 +387,7 @@ public class Grafos {
             } else {
                 caminho = recuperarCaminhoEstrutura(ver, ver.get(inicio).getPai(), fim, cami, troca);
                 if (troca) {
-                    cami.add(String.valueOf(inicio));
+                    cami.add(ver.get(inicio));
                 }
             }
         }

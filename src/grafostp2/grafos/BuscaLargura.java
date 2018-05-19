@@ -116,7 +116,7 @@ public class BuscaLargura {
     }
     
     
-    public String buscaLarguraString(int inicial, Boolean rep) {
+    public String buscaLarguraString(int vet[], int inicial, Boolean rep) {
         VerticeL[] verL = new VerticeL[Grafos.tam];
         buscaLargura(verL, inicial, rep);
         String impressao = "Raíz Busca = " + String.valueOf(inicial);
@@ -125,9 +125,12 @@ public class BuscaLargura {
             if (verL[i].getDist() == -1) {
                 impressao += String.valueOf(i) + " (" + "Não Alcançável, "
                         + String.valueOf(verL[i].getPai()) + ")\n";
+                vet[i] = -1; 
             } else {
                 impressao += String.valueOf(i) + " (" + String.valueOf(verL[i].getDist())
                         + ", " + String.valueOf(verL[i].getPai()) + ")\n";
+                System.out.println(i +" "+ verL[i].getPos() +"  "+ verL[i].getPai());
+                vet[i] = verL[i].getPai(); 
             }
         }
         impressao += "\n-1 = NULL";

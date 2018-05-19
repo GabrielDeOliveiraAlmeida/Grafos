@@ -6,6 +6,7 @@
 package grafostp2.grafos;
 
 import grafostp2.EstruturaAuxiliares.VerticeAGM;
+import grafostp2.EstruturaDados.Lista;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class CaminhoDijistra {
     
     
-    public String dijkstra(Boolean rep, int inicio) {
+    public Lista[] dijkstra(Boolean rep,int inicio) {
 
         ArrayList<VerticeAGM> vetor = new ArrayList();
         VerticeAGM aux;

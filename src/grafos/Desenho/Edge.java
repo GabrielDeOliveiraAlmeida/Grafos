@@ -33,9 +33,9 @@ public class Edge {
         //Combines the color of the two vertex to paint the edge
         if (selected) {
             g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
-            g2.setStroke(new java.awt.BasicStroke(1.0f));
+            g2.setStroke(new java.awt.BasicStroke(3.0f));
         } else {
-            g2.setStroke(new java.awt.BasicStroke(1.5f));
+            g2.setStroke(new java.awt.BasicStroke(1.0f));
             if ((this.target.isSelected() && this.source.isSelected())) { //se os vertices estao selecionados
                 g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 0.5f));
             } else {//se os vertices nao estao selecionados
@@ -48,7 +48,7 @@ public class Edge {
 
         g2.drawLine(((int) this.source.getX()), ((int) this.source.getY()),
                 ((int) this.target.getX()), ((int) this.target.getY()));
-
+        g2.setStroke(new java.awt.BasicStroke(1.0f));
         if (Grafos.or == 1) {
             drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
                     new Point((int) target.getX(), (int) target.getY()),
@@ -124,4 +124,14 @@ public class Edge {
     public void setSelected(Boolean selected) {
         this.selected = selected;
     }
+
+    public Vertex getSource() {
+        return source;
+    }
+
+    public Vertex getTarget() {
+        return target;
+    }
+    
+    
 }

@@ -8,6 +8,7 @@ package grafostp2.grafos;
 import grafostp2.EstruturaAuxiliares.Aresta;
 import grafostp2.EstruturaAuxiliares.VerticeAGM;
 import grafostp2.EstruturaDados.Heap;
+import grafostp2.EstruturaDados.Lista;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -17,7 +18,7 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
  * @author gabriel
  */
 public class CaminhoBellman {
-   public String bellman(Boolean rep, int inicio) {
+   public Lista[] bellman(Boolean rep, int inicio) {
         ArrayList<VerticeAGM> vetor = new ArrayList();
         VerticeAGM aux;
 
@@ -52,7 +53,7 @@ public class CaminhoBellman {
             if (arest.getPeso() + vetor.get(u).getPeso()
                         < vetor.get(v).getPeso()) {
                 JOptionPane.showMessageDialog(null, "Grafo ciclico, não houve formação de caminho","ERRO", ERROR_MESSAGE);
-                return "";
+                return null;
                 
             }
         }

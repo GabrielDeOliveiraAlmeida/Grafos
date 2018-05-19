@@ -13,7 +13,7 @@ import java.awt.Color;
 public class Vertex {
     private float x;
     private float y;
-    private int ray = 8;
+    private int ray = 10;
     private Boolean selected = true;
     private Color color = Color.RED;
     private int ID;
@@ -31,7 +31,7 @@ public class Vertex {
             g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
             g2.setStroke(new java.awt.BasicStroke(1.0f));
         } else { //not selected and there is not a global vertex selected
-            g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 0.5f));
+            g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 0.2f));
             g2.setStroke(new java.awt.BasicStroke(1.5f));
         }
 

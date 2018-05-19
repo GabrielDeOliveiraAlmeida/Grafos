@@ -18,9 +18,9 @@ import java.util.ArrayList;
  */
 public class ArvoreGeradora {
     
-    public String agmKruskal(Boolean rep) {
+    public ArrayList<Aresta> agmKruskal(Boolean rep) {
         Heap arestas = criarArestas(rep);
-        String impressao = "";
+        ArrayList<Aresta> impressao;
         if (rep) {
             impressao = agmKruskalLista(arestas);
         } else {
@@ -29,15 +29,13 @@ public class ArvoreGeradora {
         return impressao;
     }
 
-    private String agmKruskalMatriz(Heap arestas) {
+    private ArrayList<Aresta> agmKruskalMatriz(Heap arestas) {
         int i, j;
         int[] comp = new int[Grafos.tam];
-        Integer[][] arv = new Integer[Grafos.tam][Grafos.tam];
+        //Integer[][] arv = new Integer[Grafos.tam][Grafos.tam];
+        ArrayList<Aresta> arv = new ArrayList<>();
         for (i = 0; i < Grafos.tam; i++) {
             comp[i] = i;
-            for (j = 0; j < Grafos.tam; j++) {
-                arv[i][j] = null;
-            }
         }
         Aresta ar;
         int ver1, ver2, peso;
@@ -52,34 +50,26 @@ public class ArvoreGeradora {
                         comp[i] = comp[ver1];
                     }
                 }
-                arv[ver1][ver2] = peso;
-                arv[ver2][ver1] = peso;
+                arv.add(new Aresta(ver1, ver2, peso));
             }
         }
-        String impressao = "";
-        for (i = 0; i < Grafos.tam; i++) {
-            for (j = 0; j < Grafos.tam; j++) {
-                impressao += String.format("%d\t", arv[i][j]);
-            }
-            impressao += "\n";
-        }
-        return impressao;
+
+        return arv;
     }
 
-    private String agmKruskalLista(Heap arestas) {
+    private ArrayList<Aresta> agmKruskalLista(Heap arestas) {
 
         int i;
-        Lista[] arv = new Lista[Grafos.tam];
+        ArrayList<Aresta> arv = new ArrayList<>();
 
         int comp[] = new int[Grafos.tam];
+        
         for (i = 0; i < Grafos.tam; i++) {
-            arv[i] = new Lista();
             comp[i] = i;
-
         }
         Vertice ver;
         Aresta ar;
-        arestas.imprimir();
+        //arestas.imprimir();
         int ver1, ver2, peso, compaux;
         while (arestas.size() != 0) {
             ar = arestas.remover();
@@ -94,18 +84,12 @@ public class ArvoreGeradora {
                         comp[i] = comp[ver1];
                     }
                 }
-                ver = new Vertice(ver2, peso);
-                arv[ver1].add(ver);
-                ver = new Vertice(ver1, peso);
-                arv[ver2].add(ver);
+               arv.add(new Aresta(ver1, ver2, peso));
 
             }
         }
-        String impressao = "";
-        for (i = 0; i < Grafos.tam; i++) {
-            impressao += String.valueOf(i) + "-> " + arv[i].imprimir() + "\n";
-        }
-        return impressao;
+
+        return arv;
     }
 
     private Heap criarArestas(Boolean rep) {
@@ -143,7 +127,7 @@ public class ArvoreGeradora {
         return arestas;
     }
 
-    public String agmPrim(Boolean rep) {
+    public ArrayList<Aresta> agmPrim(Boolean rep) {
         if (rep) {
             return agmPrimLista();
         } else {
@@ -151,17 +135,17 @@ public class ArvoreGeradora {
         }
     }
 
-    private String agmPrimLista() {
+    private ArrayList<Aresta> agmPrimLista() {
         ArrayList<VerticeAGM> vetor = new ArrayList();
-        Lista[] list = new Lista[Grafos.tam];
-
+        //Lista[] list = new Lista[Grafos.tam];
+        ArrayList<Aresta> arv = new ArrayList<>();
         VerticeAGM u;
         VerticeAGM aux;
 
         for (int i = 0; i < Grafos.tam; i++) {
             aux = new VerticeAGM(-1, Grafos.INF, i, 'x');
             vetor.add(aux);
-            list[i] = new Lista();
+           // list[i] = new Lista();
         }
 
         vetor.get(0).setPeso(0);
@@ -171,8 +155,8 @@ public class ArvoreGeradora {
 
         while (Grafos.qVazio(vetor)) {
             u = Grafos.extrairMinimo(vetor);
-
-            Grafos.unir(list, u);
+            if(u== null)  break;
+            Grafos.unir(arv, u);
             tamanho = Grafos.lista[u.getPos()].size();
             ancestral = u.getPos();
             for (i = 0; i < tamanho; i++) {
@@ -183,24 +167,15 @@ public class ArvoreGeradora {
                 }
             }
         }
-        String impressao = "";
-        for (i = 0; i < Grafos.tam; i++) {
-            impressao += String.valueOf(i) + "-> " + list[i].imprimir() + "\n";
-        }
-        return impressao;
+        return arv;
 
     }
 
-    private String agmPrimMatriz() {
+    private ArrayList<Aresta> agmPrimMatriz() {
         ArrayList<VerticeAGM> vetor = new ArrayList();
-        Integer[][] matrix = new Integer[Grafos.tam][Grafos.tam];
+        ArrayList<Aresta> arv = new ArrayList<>();
         int i, j;
         VerticeAGM aux;
-        for (i = 0; i < Grafos.tam; i++) {
-            for (j = 0; j < Grafos.tam; j++) {
-                matrix[i][j] = null;
-            }
-        }
 
         for (i = 0; i < Grafos.tam; i++) {
             aux = new VerticeAGM(-1, Grafos.INF, i, 'x');
@@ -215,8 +190,8 @@ public class ArvoreGeradora {
 
         while (Grafos.qVazio(vetor)) {
             u = Grafos.extrairMinimo(vetor);
-
-            Grafos.unirMatriz(matrix, u);
+            if(u==null) break;
+            Grafos.unir(arv, u);
             ancestral = u.getPos();
             for (j = 0; j < Grafos.tam; j++) {
                 if (Grafos.matriz[ancestral][j] != null) {
@@ -228,14 +203,7 @@ public class ArvoreGeradora {
                 }
             }
         }
-        String impressao = "";
-        for (i = 0; i < Grafos.tam; i++) {
-            for (j = 0; j < Grafos.tam; j++) {
-                impressao += String.format("%d\t", matrix[i][j]);
-            }
-            impressao += "\n";
-        }
-        return impressao;
+        return arv;
     }
 
 

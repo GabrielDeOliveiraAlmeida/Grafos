@@ -9,6 +9,8 @@ import grafos.Desenho.Graph;
 import grafos.Desenho.Vertex;
 import grafos.Desenho.Visualizar;
 import grafostp2.Controlador.Controlador;
+import grafostp2.EstruturaAuxiliares.Aresta;
+import grafostp2.EstruturaDados.Lista;
 import grafostp2.grafos.Grafos;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -104,6 +106,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
         jTextPane1 = new javax.swing.JTextPane();
         grafico = new javax.swing.JScrollPane();
         jLabel3 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -174,7 +177,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
 
         jLabel4.setText("Resultados");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Operações Grafos", "Busca", "Verificar Caminho", "Verificar se Grafo é Conexo", "Árvore Geradora Mínima", "Caminho Mínimo" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Operações Grafos", "Busca", "Verificar Caminho", "Verificar se Grafo é Conexo", "Árvore Geradora Mínima", "Caminho Mínimo", "Coloração do Grafo", "Conectividade (Fortemente Conexas)", "Transposição Grafo", "Ordem Topológica" }));
         jComboBox1.setEnabled(false);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,24 +292,24 @@ public class GrafosTP1UI extends javax.swing.JFrame {
             verCaminhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(verCaminhoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(verCaminhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, verCaminhoLayout.createSequentialGroup()
-                        .addGroup(verCaminhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(finalVer, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inicialVer, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(verCaminhoLayout.createSequentialGroup()
-                                .addComponent(radioProfundidadeV)
-                                .addGap(34, 34, 34)
-                                .addComponent(radioLarguraV)))
-                        .addGap(54, 54, 54)))
-                .addContainerGap())
+                .addComponent(radioProfundidadeV)
+                .addGap(34, 34, 34)
+                .addComponent(radioLarguraV)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(verCaminhoLayout.createSequentialGroup()
                 .addGroup(verCaminhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
+                    .addGroup(verCaminhoLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(finalVer, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel8))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 176, Short.MAX_VALUE))
+            .addGroup(verCaminhoLayout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inicialVer, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
         verCaminhoLayout.setVerticalGroup(
             verCaminhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,17 +320,20 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                 .addGroup(verCaminhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioProfundidadeV)
                     .addComponent(radioLarguraV))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inicialVer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(finalVer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap())
+                .addGroup(verCaminhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(verCaminhoLayout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(2, 2, 2)
+                        .addComponent(finalVer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(verCaminhoLayout.createSequentialGroup()
+                        .addGroup(verCaminhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(inicialVer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addGap(34, 34, 34))))
         );
 
         root.add(verCaminho, "caminhoVer");
@@ -499,7 +505,14 @@ public class GrafosTP1UI extends javax.swing.JFrame {
 
         root.add(jScrollPane4, "card8");
 
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("Representação");
+
+        jButton6.setText("Grafo Inicial");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Grafo (Arquivo)");
 
@@ -549,12 +562,12 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                     .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(grafico)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(0, 627, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(grafico)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 467, Short.MAX_VALUE)
+                        .addComponent(jButton6)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -576,7 +589,9 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jButton6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(grafico)))
                 .addContainerGap())
@@ -674,7 +689,9 @@ public class GrafosTP1UI extends javax.swing.JFrame {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        inicial();
         int inicial;
+        int[] vet = new int[Grafos.tam];
         String impressao;
         if (!repres()) {
             return;
@@ -699,7 +716,8 @@ public class GrafosTP1UI extends javax.swing.JFrame {
             impressao = control.buscaProfundidadeString(inicial, representacao);
             resultadoText.setText(impressao);
         } else {
-            impressao = control.buscaLarguraString(inicial, representacao);
+            impressao = control.buscaLarguraString(vet, inicial, representacao);
+            view.pintarArestas(vet);
             resultadoText.setText(impressao);
         }
 
@@ -707,6 +725,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        inicial();
         if (!repres()) {
             return;
         }
@@ -740,6 +759,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
             //impressao += control.buscaProfundidadeString(inicio, representacao);
             lista = control.verificarCaminho(inicio, fim, representacao, true);
             if (lista != null) {
+                view.caminho(lista);
                 cami = String.join("-> ", lista);
                 cami = impressao + "Busca Profundidade:\n" + cami;
                 resultadoText.setText(cami);
@@ -750,6 +770,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
         } else {
             lista = control.verificarCaminho(inicio, fim, representacao, false);
             if (lista != null) {
+                view.caminho(lista);
                 cami = String.join("-> ", lista);
                 cami = "Busca Largura:\n" + cami;
                 resultadoText.setText(cami);
@@ -777,21 +798,26 @@ public class GrafosTP1UI extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+       inicial();
         String impressao;
+        
         if (!repres()) {
             return;
         }
+        int[] comp = new int[Grafos.tam];
         if (control.getOr() == 1) {
             JOptionPane.showMessageDialog(null, "Válido apenas para Grafos!", "ATENÇÃO", WARNING_MESSAGE);
         } else {
-            impressao = control.buscaProfundidadeConexo(representacao);
+            impressao = control.buscaProfundidadeConexo(comp, representacao);
+            view.compConexas(comp);
             resultadoText.setText(impressao);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        String impressao = "";
+        inicial();
+        ArrayList<Aresta> impressao;
         if (!repres()) {
             return;
         }
@@ -804,7 +830,15 @@ public class GrafosTP1UI extends javax.swing.JFrame {
         } else {
             impressao = control.agmPrim(representacao);
         }
-        resultadoText.setText(impressao);
+        view.arvoreGeradora(impressao);
+        String resul="Vertice1 Vertice2 (Peso)\n";
+        for(Aresta a:impressao){
+            resul+=String.valueOf(a.getVer1())+" "+ String.valueOf(a.getVer2())+
+                    " ("+a.getPeso()+")"+"\n";
+        }
+            
+        
+        resultadoText.setText(resul);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -814,6 +848,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        inicial();
         int inicial;
         if (!repres()) {
             return;
@@ -830,16 +865,43 @@ public class GrafosTP1UI extends javax.swing.JFrame {
             resetCampo(verMin);
             return;
         }
-        String caminho;
+        //String caminho;
+        Lista[] caminho;
         if (radioDij.isSelected()) {
-            caminho = control.dijkstra(representacao, inicial);
-            resultadoText.setText(caminho);
+            caminho = control.dijkstra(representacao,inicial);
+            view.caminhoMin(caminho);  
         } else {
             caminho = control.bellman(representacao, inicial);
-            resultadoText.setText(caminho);
+            view.caminhoMin(caminho); 
         }
+        resultadoText.setText(imprimirLista(caminho));
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private String imprimirLista(Lista[] lista){
+        int i,j, tamanho;
+        String resul = "Vertice\tCaminho\n";
+        for(i=0; i<Grafos.tam; i++){
+            tamanho = lista[i].size();
+            resul += String.valueOf(i) + "|\t";
+            for(j=0 ; j<tamanho; j++){
+                resul+= String.valueOf(lista[i].getVer(j))+ "->";
+            }
+            resul+="/\n";
+        }
+        return resul;
+    }
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        inicial();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void inicial(){
+      view.setEdgesTrueFalse(true);
+      view.setCor();
+      view.setEdgesTrueFalse(false);
+      view.cleanImage();
+      view.repaint();  
+    }
     /**
      * @param args the command line arguments
      */
@@ -896,6 +958,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
