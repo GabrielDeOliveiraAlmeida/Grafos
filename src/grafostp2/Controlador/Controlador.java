@@ -7,6 +7,7 @@ package grafostp2.Controlador;
 
 import grafos.Desenho.Graph;
 import grafostp2.EstruturaAuxiliares.Aresta;
+import grafostp2.EstruturaAuxiliares.VerticeP;
 import grafostp2.EstruturaDados.Lista;
 import grafostp2.grafos.ArvoreGeradora;
 import grafostp2.grafos.BuscaLargura;
@@ -14,6 +15,7 @@ import grafostp2.grafos.BuscaProfundidade;
 import grafostp2.grafos.CaminhoBellman;
 import grafostp2.grafos.CaminhoDijistra;
 import grafostp2.grafos.Grafos;
+import grafostp2.grafos.OrdenacaoTopologica;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +30,7 @@ public class Controlador {
     public static CaminhoDijistra camD = new CaminhoDijistra();
     public static ArvoreGeradora agm = new ArvoreGeradora();
     public static CaminhoBellman camB = new CaminhoBellman();
+    public static OrdenacaoTopologica ord = new OrdenacaoTopologica();
     
     public Boolean pegaArquivo() {
         return grafos.pegaArquivo();
@@ -100,4 +103,7 @@ public class Controlador {
         return camB.bellman(rep, inicial);
     }
 
+    public ArrayList<VerticeP> ordTopologica(Boolean rep,int inicio){
+        return ord.ordTopologica(rep, inicio);
+    }
 }

@@ -6,6 +6,7 @@ package grafos.Desenho;
 
 
 import grafostp2.Desenho.Color.RainbowScale;
+import grafostp2.EstruturaAuxiliares.VerticeP;
 import java.util.ArrayList;
 
 /**
@@ -58,6 +59,20 @@ public class Graph {
         }
     }
 
+    public void computeLinePosition(ArrayList<VerticeP> vetor){
+        int deslocX = 100;
+        int deslocY = 100;
+        int tam = vetor.size();
+        for(int i =0 ;i<tam; i++){
+            for(Vertex v : vertex){
+                if(i == v.getID()){
+                    v.setX(deslocX);
+                    v.setY(deslocY);
+                    deslocX+=100;
+                }
+            }
+        } 
+    }
     public ArrayList<Vertex> getVertex() {
         return this.vertex;
     }

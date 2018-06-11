@@ -7,6 +7,7 @@ package grafos.Desenho;
 
 import grafostp2.Desenho.Color.RainbowScale;
 import grafostp2.EstruturaAuxiliares.Aresta;
+import grafostp2.EstruturaAuxiliares.VerticeP;
 import grafostp2.EstruturaDados.Lista;
 import grafostp2.grafos.Grafos;
 import static grafostp2.grafos.Grafos.graph;
@@ -260,7 +261,21 @@ public class Visualizar extends javax.swing.JPanel {
         this.cleanImage();
         this.repaint();
     }
-
+    
+    public void ordTopologica(ArrayList<VerticeP> vetor){
+        int aux = 1;
+        for(Edge a : graph.edges){
+            a.setTop(true);
+            aux*=-1;
+            a.setInv(aux);
+        }
+        graph.computeLinePosition(vetor);
+        
+        cleanImage();
+        repaint();
+        
+    }
+    
     public void setCor(){
         RainbowScale cor = new RainbowScale();
         int colorStep = 255 / graph.vertex.size();

@@ -37,11 +37,11 @@ public class Vertex {
 
         g2.setColor(this.color);        
         g2.fillOval(((int) this.x) - this.getRay(), ((int) this.y)
-                - this.getRay(), this.getRay() * 4, this.getRay() * 4);
+                - this.getRay(), this.getRay() * 2, this.getRay() * 2);
 
         g2.setColor(Color.BLACK);
         g2.drawOval(((int) this.x) - this.getRay(), ((int) this.y)
-                - this.getRay(), this.getRay() * 4, this.getRay() * 4);
+                - this.getRay(), this.getRay() *2 , this.getRay() * 2);
         
         if(this.color.equals(Color.BLACK))
             g2.setColor(Color.WHITE);

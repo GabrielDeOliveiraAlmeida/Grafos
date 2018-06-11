@@ -9,7 +9,7 @@ package grafostp2.EstruturaAuxiliares;
  *
  * @author gabriel
  */
-public class VerticeP {
+public class VerticeP implements Comparable<VerticeP>  {
 
     private char cor;
     private int inicio;
@@ -55,4 +55,11 @@ public class VerticeP {
         this.peso = peso;
     }
 
+    @Override
+    public int compareTo(VerticeP verP) {
+       if(this.peso < verP.getPeso()) return 1;
+        else return -1;
+    }
+
+  
 }

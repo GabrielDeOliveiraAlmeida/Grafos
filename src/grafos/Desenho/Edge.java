@@ -22,11 +22,18 @@ public class Edge {
     private int peso;
     private Boolean directed = false; //se a aresta é direcionada
     private Boolean selected = false; //se a aresta está selecionada
+    private Boolean top = false;
+    private int inv = 1;
 
     public Edge(Vertex source, Vertex target, int peso) {
         this.source = source;
         this.target = target;
         this.peso = peso;
+
+    }
+    
+    public void setInv(int inv){
+        this.inv = inv;
     }
 
     public void draw(java.awt.Graphics2D g2) {
@@ -42,24 +49,45 @@ public class Edge {
                 g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 0.2f));
             }
         }
-        this.color = java.awt.Color.BLACK;
-        
-        g2.setColor(this.color);
 
-        g2.drawLine(((int) this.source.getX()), ((int) this.source.getY()),
-                ((int) this.target.getX()), ((int) this.target.getY()));
-        g2.setStroke(new java.awt.BasicStroke(1.0f));
-        if (Grafos.or == 1) {
-            drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+        if (top) {
+            int x, y;
+            int h, distancia;
+            if(inv == 1) h = 170;
+            else h = 300;
+            x = (int) source.getX();
+            y = (int) target.getX();
+            distancia = y - x;
+
+            if (distancia == 100) {
+                h = 200;
+                g2.drawLine(((int) source.getX()), ((int) source.getY()),
+                        ((int) target.getX()), ((int) target.getY()));
+            } else {
+                g2.drawArc((int) x, 150, (int) distancia, 140, 0, inv*180);
+            }
+
+            g2.drawString(Integer.toString(peso), (y + x) / 2, h);
+            
+        } else {
+            this.color = java.awt.Color.BLACK;
+
+            g2.setColor(this.color);
+
+            g2.drawLine(((int) this.source.getX()), ((int) this.source.getY()),
+                    ((int) this.target.getX()), ((int) this.target.getY()));
+            g2.setStroke(new java.awt.BasicStroke(1.0f));
+            if (Grafos.or == 1) {
+                drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+                        new Point((int) target.getX(), (int) target.getY()),
+                        6, 14);
+
+            }
+
+            drawText(g2, new Point((int) source.getX(), (int) source.getY()),
                     new Point((int) target.getX(), (int) target.getY()),
-                    6, 14);
-
+                    peso, 70);
         }
-        
-        drawText(g2, new Point((int) source.getX(), (int) source.getY()),
-                new Point((int) target.getX(), (int) target.getY()),
-                peso, 70);
-
         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
     }
 
@@ -80,6 +108,10 @@ public class Edge {
         g2.drawLine(pc.x, pc.y, pb.x, pb.y);
     }
 
+    public void setTop(Boolean a) {
+        this.top = a;
+    }
+
     private void drawText(Graphics2D g2, Point s, Point t, int peso, int deslocamento) {
         float r = (float) Math.sqrt(Math.pow(s.x - t.x, 2) + Math.pow(s.y - t.y, 2));
         float cos = (t.x - s.x) / r;
@@ -89,7 +121,7 @@ public class Edge {
         g2.setFont(new Font(("Verdana"), Font.BOLD, 14));
         g2.setColor(Color.BLACK);
         g2.drawString(String.valueOf(peso), pc.x, pc.y);
-        
+
     }
 
     private void drawArrow(Graphics2D g2, Point s, Point t, float size) {
@@ -132,6 +164,5 @@ public class Edge {
     public Vertex getTarget() {
         return target;
     }
-    
-    
+
 }

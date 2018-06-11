@@ -38,15 +38,16 @@ public class ArvoreGeradora {
             comp[i] = i;
         }
         Aresta ar;
-        int ver1, ver2, peso;
+        int ver1, ver2, peso, compaux;
         while (arestas.size() != 0) {
             ar = arestas.remover();
             ver1 = ar.getVer1();
             ver2 = ar.getVer2();
             peso = ar.getPeso();
             if (comp[ver1] != comp[ver2]) {
+                compaux = comp[ver2];
                 for (i = 0; i < Grafos.tam; i++) {
-                    if (comp[i] == ver2) {
+                    if (comp[i] == compaux) {
                         comp[i] = comp[ver1];
                     }
                 }

@@ -10,6 +10,7 @@ import grafos.Desenho.Vertex;
 import grafos.Desenho.Visualizar;
 import grafostp2.Controlador.Controlador;
 import grafostp2.EstruturaAuxiliares.Aresta;
+import grafostp2.EstruturaAuxiliares.VerticeP;
 import grafostp2.EstruturaDados.Lista;
 import grafostp2.grafos.Grafos;
 import java.awt.CardLayout;
@@ -104,6 +105,11 @@ public class GrafosTP1UI extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        ordTopologica = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        entradaOrdT = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
         grafico = new javax.swing.JScrollPane();
         jLabel3 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
@@ -505,6 +511,59 @@ public class GrafosTP1UI extends javax.swing.JFrame {
 
         root.add(jScrollPane4, "card8");
 
+        jLabel1.setText("Vertice Inicial");
+
+        jButton7.setText("Ordenar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        entradaOrdT.setText(" ");
+        entradaOrdT.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                entradaOrdTFocusGained(evt);
+            }
+        });
+
+        jLabel10.setText("Ordenação Topologica");
+
+        javax.swing.GroupLayout ordTopologicaLayout = new javax.swing.GroupLayout(ordTopologica);
+        ordTopologica.setLayout(ordTopologicaLayout);
+        ordTopologicaLayout.setHorizontalGroup(
+            ordTopologicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ordTopologicaLayout.createSequentialGroup()
+                .addGroup(ordTopologicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ordTopologicaLayout.createSequentialGroup()
+                        .addComponent(entradaOrdT, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                        .addComponent(jButton7))
+                    .addGroup(ordTopologicaLayout.createSequentialGroup()
+                        .addGroup(ordTopologicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        ordTopologicaLayout.setVerticalGroup(
+            ordTopologicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ordTopologicaLayout.createSequentialGroup()
+                .addComponent(jLabel10)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                .addGroup(ordTopologicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ordTopologicaLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(entradaOrdT))
+                    .addGroup(ordTopologicaLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
+                .addGap(21, 21, 21))
+        );
+
+        root.add(ordTopologica, "ordTopol");
+
         jLabel3.setText("Representação");
 
         jButton6.setText("Grafo Inicial");
@@ -671,6 +730,10 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                 break;
             case 5:
                 c.show(root, "verMin");
+                break;
+            case 9:
+                c.show(root, "ordTopol");
+                break;
         }
 
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -895,6 +958,34 @@ public class GrafosTP1UI extends javax.swing.JFrame {
         inicial();
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        inicial();
+        int inicial;
+        if (!repres()) {
+            return;
+        }
+        try {
+            inicial = Integer.parseInt(entradaOrdT.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Entrada Inválida","ERRO", ERROR_MESSAGE);
+            resetCampo(entradaOrdT);
+            return;
+        }
+        if (!control.verificarEntrada(inicial)) {
+            JOptionPane.showMessageDialog(null, "Entrada inválida","ERRO", ERROR_MESSAGE);
+            resetCampo(entradaOrdT);
+            return;
+        }
+        ArrayList<VerticeP> vert = control.ordTopologica(representacao, inicial);
+        view.ordTopologica(vert);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void entradaOrdTFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_entradaOrdTFocusGained
+        // TODO add your handling code here:
+        entradaOrdT.setText("");
+    }//GEN-LAST:event_entradaOrdTFocusGained
+
     private void inicial(){
       view.setEdgesTrueFalse(true);
       view.setCor();
@@ -943,6 +1034,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
     private javax.swing.JLabel alerta2;
     private javax.swing.JPanel buscaP;
     private javax.swing.JPanel caminhoMin;
+    private javax.swing.JTextField entradaOrdT;
     private javax.swing.JTextField finalVer;
     private javax.swing.JScrollPane grafico;
     private javax.swing.ButtonGroup grupoAGM;
@@ -959,7 +1051,10 @@ public class GrafosTP1UI extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -985,6 +1080,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JRadioButton kruskal;
+    private javax.swing.JPanel ordTopologica;
     private javax.swing.JRadioButton prim;
     private javax.swing.JRadioButton radioDij;
     private javax.swing.JRadioButton radioLargura;
