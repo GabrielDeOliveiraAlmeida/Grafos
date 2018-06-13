@@ -270,6 +270,7 @@ public class GrayScale extends ColorScale{
         colors[255] = new java.awt.Color(255, 255, 255);
     }
 
+ @Override
     public String getName() {
         return "Gray";
     }
