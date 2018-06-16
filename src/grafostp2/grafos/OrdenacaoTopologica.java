@@ -16,16 +16,16 @@ import java.util.Collections;
  */
 public class OrdenacaoTopologica {
     
-    public ArrayList<VerticeP> ordTopologica(Boolean rep, int inicio){
-        Vertice[] ord = new Vertice[Grafos.tam];
+    public ArrayList<Vertice> ordTopologica(Boolean rep, int inicio){
         int[] pai = new int[Grafos.tam];
         VerticeP[] verP = new  VerticeP[Grafos.tam];
         
         BuscaProfundidade.caminhoProfundidade(verP, inicio, inicio, rep,pai);
-        ArrayList<VerticeP> ordenar = new ArrayList<>();
+
+        ArrayList<Vertice> ordenar = new ArrayList<>();
             
         for(int i=0; i<Grafos.tam; i++){
-            ordenar.add(verP[i]);
+            ordenar.add(new Vertice(i,verP[i].getFim()));
         }
         
         Collections.sort(ordenar);

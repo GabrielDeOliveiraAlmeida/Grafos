@@ -24,6 +24,7 @@ public class Edge {
     private Boolean selected = false; //se a aresta está selecionada
     private Boolean top = false;
     private int inv = 1;
+    private Boolean transposto = false;
 
     public Edge(Vertex source, Vertex target, int peso) {
         this.source = source;
@@ -51,6 +52,7 @@ public class Edge {
         }
 
         if (top) {
+            System.out.println("Topologica");
             int x, y;
             int h, distancia;
             if(inv == 1) h = 170;
@@ -87,6 +89,21 @@ public class Edge {
             drawText(g2, new Point((int) source.getX(), (int) source.getY()),
                     new Point((int) target.getX(), (int) target.getY()),
                     peso, 70);
+        }
+        
+        if (isDirected() && !top) {
+
+            if(transposto){
+                Vertex aux;
+                aux = this.source;
+                this.source = this.target;
+                this.target = aux;
+            }
+            
+                drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+                    new Point((int) target.getX(), (int) target.getY()), 6, 30);
+            
+
         }
         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
     }
@@ -165,4 +182,7 @@ public class Edge {
         return target;
     }
 
+    public void setTransposta(Boolean t){
+        this.transposto = t;
+    }
 }

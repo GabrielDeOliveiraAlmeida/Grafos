@@ -5,20 +5,14 @@
  */
 package grafostp2.UI;
 
-import grafos.Desenho.Graph;
-import grafos.Desenho.Vertex;
 import grafos.Desenho.Visualizar;
 import grafostp2.Controlador.Controlador;
+import grafostp2.Desenho.Color.RainbowScale;
 import grafostp2.EstruturaAuxiliares.Aresta;
-import grafostp2.EstruturaAuxiliares.VerticeP;
 import grafostp2.EstruturaDados.Lista;
 import grafostp2.grafos.Grafos;
+import grafostp2.EstruturaAuxiliares.Vertice;
 import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -110,6 +104,16 @@ public class GrafosTP1UI extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         entradaOrdT = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        conexidade = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
+        entradaCon = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        alerta4 = new javax.swing.JLabel();
+        color = new javax.swing.JPanel();
+        colorButton = new javax.swing.JButton();
+        alerta3 = new javax.swing.JLabel();
+        transposto = new javax.swing.JPanel();
+        jButton9 = new javax.swing.JButton();
         grafico = new javax.swing.JScrollPane();
         jLabel3 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
@@ -197,7 +201,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
         inicioP.setLayout(inicioPLayout);
         inicioPLayout.setHorizontalGroup(
             inicioPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 358, Short.MAX_VALUE)
+            .addGap(0, 399, Short.MAX_VALUE)
         );
         inicioPLayout.setVerticalGroup(
             inicioPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +244,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(buscaPLayout.createSequentialGroup()
                         .addComponent(verticeInicialB, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                         .addComponent(jButton1)))
                 .addContainerGap())
             .addGroup(buscaPLayout.createSequentialGroup()
@@ -309,7 +313,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(finalVer, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel8))
-                .addGap(0, 176, Short.MAX_VALUE))
+                .addGap(0, 217, Short.MAX_VALUE))
             .addGroup(verCaminhoLayout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -365,7 +369,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                 .addGroup(verConexoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(verConexoLayout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                         .addComponent(jButton3))
                     .addGroup(verConexoLayout.createSequentialGroup()
                         .addComponent(alerta1)
@@ -414,7 +418,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, agmLayout.createSequentialGroup()
                 .addComponent(prim)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
                 .addGroup(agmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(kruskal)
                     .addComponent(jButton4))
@@ -477,7 +481,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(caminhoMinLayout.createSequentialGroup()
                                 .addComponent(verMin, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                                 .addComponent(jButton5)))
                         .addContainerGap())
                     .addGroup(caminhoMinLayout.createSequentialGroup()
@@ -537,7 +541,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                 .addGroup(ordTopologicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ordTopologicaLayout.createSequentialGroup()
                         .addComponent(entradaOrdT, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
                         .addComponent(jButton7))
                     .addGroup(ordTopologicaLayout.createSequentialGroup()
                         .addGroup(ordTopologicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,19 +554,131 @@ public class GrafosTP1UI extends javax.swing.JFrame {
             ordTopologicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ordTopologicaLayout.createSequentialGroup()
                 .addComponent(jLabel10)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-                .addGroup(ordTopologicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ordTopologicaLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(entradaOrdT))
-                    .addGroup(ordTopologicaLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
-                .addGap(21, 21, 21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ordTopologicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(entradaOrdT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
 
         root.add(ordTopologica, "ordTopol");
+
+        jButton8.setText("Verificar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("Componentes fortemente conexas");
+
+        alerta4.setForeground(new java.awt.Color(255, 0, 0));
+        alerta4.setText("Valído somente para Dígrafos");
+
+        javax.swing.GroupLayout conexidadeLayout = new javax.swing.GroupLayout(conexidade);
+        conexidade.setLayout(conexidadeLayout);
+        conexidadeLayout.setHorizontalGroup(
+            conexidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conexidadeLayout.createSequentialGroup()
+                .addComponent(jLabel12)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(conexidadeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(conexidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(conexidadeLayout.createSequentialGroup()
+                        .addComponent(alerta4)
+                        .addGap(0, 172, Short.MAX_VALUE))
+                    .addGroup(conexidadeLayout.createSequentialGroup()
+                        .addComponent(entradaCon, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton8)))
+                .addContainerGap())
+        );
+        conexidadeLayout.setVerticalGroup(
+            conexidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conexidadeLayout.createSequentialGroup()
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(conexidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8)
+                    .addComponent(entradaCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(alerta4)
+                .addGap(14, 14, 14))
+        );
+
+        root.add(conexidade, "cone");
+
+        colorButton.setText("Coloracao");
+        colorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorButtonActionPerformed(evt);
+            }
+        });
+
+        alerta3.setForeground(new java.awt.Color(255, 11, 0));
+        alerta3.setText("Valído apenas para Grafos");
+
+        javax.swing.GroupLayout colorLayout = new javax.swing.GroupLayout(color);
+        color.setLayout(colorLayout);
+        colorLayout.setHorizontalGroup(
+            colorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(colorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(alerta3)
+                .addContainerGap(209, Short.MAX_VALUE))
+            .addGroup(colorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(colorLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(colorButton)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        colorLayout.setVerticalGroup(
+            colorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorLayout.createSequentialGroup()
+                .addContainerGap(88, Short.MAX_VALUE)
+                .addComponent(alerta3)
+                .addContainerGap())
+            .addGroup(colorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(colorLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(colorButton)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        root.add(color, "color");
+
+        jButton9.setText("Transposição do Grafo");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout transpostoLayout = new javax.swing.GroupLayout(transposto);
+        transposto.setLayout(transpostoLayout);
+        transpostoLayout.setHorizontalGroup(
+            transpostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 399, Short.MAX_VALUE)
+            .addGroup(transpostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(transpostoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton9)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        transpostoLayout.setVerticalGroup(
+            transpostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 117, Short.MAX_VALUE)
+            .addGroup(transpostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(transpostoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton9)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        root.add(transposto, "transposto");
 
         jLabel3.setText("Representação");
 
@@ -612,20 +728,20 @@ public class GrafosTP1UI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(root, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                     .addComponent(input)
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(root, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(grafico)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 467, Short.MAX_VALUE)
-                        .addComponent(jButton6)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 420, Short.MAX_VALUE)
+                        .addComponent(jButton6))
+                    .addComponent(grafico))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -674,7 +790,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
         jComboBox1.requestFocus();
         resultadoText.setText("");
         if (radioLista.isSelected()) {
-            impressao = control.imprimirLista();
+            impressao = control.imprimirLista(Grafos.lista);
         } else if (radioMatriz.isSelected()) {
             impressao = control.imprimirMatriz();
         } else {
@@ -685,11 +801,14 @@ public class GrafosTP1UI extends javax.swing.JFrame {
             repInput.setText("Representação Dígrafo");
             alerta1.setVisible(true);
             alerta2.setVisible(true);
+            alerta4.setVisible(false);
+            
         } else {
             input.setText("Grafo");
             repInput.setText("Representação Grafo");
             alerta1.setVisible(false);
             alerta2.setVisible(false);
+            alerta3.setVisible(false);
             
         }
         texto.setText(impressao);
@@ -697,7 +816,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
 
     private void radioListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioListaActionPerformed
         // TODO add your handling code here:
-        texto.setText(control.imprimirLista());
+        texto.setText(control.imprimirLista(Grafos.lista));
         representacao = true;
     }//GEN-LAST:event_radioListaActionPerformed
 
@@ -730,6 +849,15 @@ public class GrafosTP1UI extends javax.swing.JFrame {
                 break;
             case 5:
                 c.show(root, "verMin");
+                break;
+            case 6:
+                c.show(root, "color");
+                break;
+            case 7:
+                c.show(root, "cone");
+                break;
+            case 8:
+                c.show(root, "transposto");
                 break;
             case 9:
                 c.show(root, "ordTopol");
@@ -956,12 +1084,18 @@ public class GrafosTP1UI extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         inicial();
+        if(Grafos.graph.getIsLine())
+            Grafos.graph.computeCircledPosition(150);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         inicial();
         int inicial;
+        if(Grafos.or==0){
+            JOptionPane.showMessageDialog(null, "Apenas para dígrafos");
+            return;
+        }
         if (!repres()) {
             return;
         }
@@ -977,8 +1111,12 @@ public class GrafosTP1UI extends javax.swing.JFrame {
             resetCampo(entradaOrdT);
             return;
         }
-        ArrayList<VerticeP> vert = control.ordTopologica(representacao, inicial);
-        view.ordTopologica(vert);
+        Grafos.graph.getVertex().get(inicial).setSelected(false);
+        ArrayList<Vertice> vert = control.ordTopologica(representacao, inicial);
+        Grafos.graph.computeLinePosition(vert);
+        view.ordTopologica();
+        this.view.cleanImage();
+        this.view.repaint();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void entradaOrdTFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_entradaOrdTFocusGained
@@ -986,7 +1124,68 @@ public class GrafosTP1UI extends javax.swing.JFrame {
         entradaOrdT.setText("");
     }//GEN-LAST:event_entradaOrdTFocusGained
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        if (!repres()) {
+            return;
+        }
+        if(Grafos.or == 0){
+            JOptionPane.showMessageDialog(null, "Validos somente para Dígrafos");
+        }
+        int inicial;
+        try {
+            inicial = Integer.parseInt(entradaCon.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Entrada Inválida","ERRO", ERROR_MESSAGE);
+            resetCampo(entradaCon);
+            return;
+        }
+        if (!control.verificarEntrada(inicial)) {
+            JOptionPane.showMessageDialog(null, "Entrada inválida","ERRO", ERROR_MESSAGE);
+            resetCampo(entradaCon);
+            return;
+        }
+        
+        inicial();
+        control.buscaProConexidade(inicial, representacao);
+        this.view.cleanImage();
+        this.view.repaint();
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void colorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorButtonActionPerformed
+
+        if (Grafos.or == 0) {
+            int cores[] = this.control.coloracao();
+            int nCores = cores.length;
+
+            int coresStep = 255 / nCores;
+            RainbowScale ec = new RainbowScale();
+            //GrayScale gs = new GrayScale();
+            for (int i = 0; i < cores.length; i++) {
+                Grafos.graph.getVertex().get(i).setColor(ec.getColor(cores[i] * coresStep));
+            }
+            this.view.cleanImage();
+            this.view.repaint();
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Algoritmo não disponível para dígrafos!");
+        }
+    }//GEN-LAST:event_colorButtonActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        inicial();
+        Grafos.setGraph(Grafos.graphT);
+        resultadoText.setText(control.imprimirLista(Grafos.listaT));
+        this.view.cleanImage();
+        this.view.repaint();
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+        
     private void inicial(){
+      Grafos.setGraph(Grafos.graphCopia);      
       view.setEdgesTrueFalse(true);
       view.setCor();
       view.setEdgesTrueFalse(false);
@@ -1032,8 +1231,14 @@ public class GrafosTP1UI extends javax.swing.JFrame {
     private javax.swing.JPanel agm;
     private javax.swing.JLabel alerta1;
     private javax.swing.JLabel alerta2;
+    private javax.swing.JLabel alerta3;
+    private javax.swing.JLabel alerta4;
     private javax.swing.JPanel buscaP;
     private javax.swing.JPanel caminhoMin;
+    private javax.swing.JPanel color;
+    private javax.swing.JButton colorButton;
+    private javax.swing.JPanel conexidade;
+    private javax.swing.JTextField entradaCon;
     private javax.swing.JTextField entradaOrdT;
     private javax.swing.JTextField finalVer;
     private javax.swing.JScrollPane grafico;
@@ -1052,10 +1257,13 @@ public class GrafosTP1UI extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -1093,6 +1301,7 @@ public class GrafosTP1UI extends javax.swing.JFrame {
     private javax.swing.JTextArea resultadoText;
     private javax.swing.JPanel root;
     private javax.swing.JTextArea texto;
+    private javax.swing.JPanel transposto;
     private javax.swing.JPanel verCaminho;
     private javax.swing.JPanel verConexo;
     private javax.swing.JTextField verMin;

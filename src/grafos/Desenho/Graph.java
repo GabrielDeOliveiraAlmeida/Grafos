@@ -6,6 +6,7 @@ package grafos.Desenho;
 
 
 import grafostp2.Desenho.Color.RainbowScale;
+import grafostp2.EstruturaAuxiliares.Vertice;
 import grafostp2.EstruturaAuxiliares.VerticeP;
 import java.util.ArrayList;
 
@@ -16,8 +17,13 @@ import java.util.ArrayList;
 public class Graph {
     protected ArrayList<Vertex> vertex = new ArrayList<Vertex>();
     protected ArrayList<Edge> edges = new ArrayList<Edge>();
+    private Boolean isLine;
     
+    public Boolean getIsLine(){
+        return isLine;
+    }
     public Graph(int nVert) {
+        isLine = false;
         RainbowScale cS = new RainbowScale();
         //GrayScale cS = new GrayScale();
         int colorStep = 255 / nVert;
@@ -43,6 +49,7 @@ public class Graph {
     }
 
     public void computeCircledPosition(int ray){
+        isLine = false;
         int nVert = this.vertex.size();
         int step = 360 / nVert;
         int deslocX = 100 + ray;
@@ -59,13 +66,14 @@ public class Graph {
         }
     }
 
-    public void computeLinePosition(ArrayList<VerticeP> vetor){
+    public void computeLinePosition(ArrayList<Vertice> vetor){
+        isLine = true;
         int deslocX = 100;
         int deslocY = 100;
         int tam = vetor.size();
         for(int i =0 ;i<tam; i++){
             for(Vertex v : vertex){
-                if(i == v.getID()){
+                if(vetor.get(i).getVer() == v.getID()){
                     v.setX(deslocX);
                     v.setY(deslocY);
                     deslocX+=100;
@@ -133,6 +141,11 @@ public class Graph {
 
     public ArrayList<Edge> getEdges() {
         return edges;
+    }
+        public void setArestasTransp (Boolean t){
+        for (Edge a : this.edges){
+            a.setTransposta(t);
+        }
     }
     
     

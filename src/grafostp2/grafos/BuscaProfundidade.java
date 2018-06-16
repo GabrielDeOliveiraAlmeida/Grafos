@@ -5,9 +5,13 @@
  */
 package grafostp2.grafos;
 
+import grafostp2.Desenho.Color.RainbowScale;
+import grafostp2.EstruturaAuxiliares.Vertice;
 import grafostp2.EstruturaAuxiliares.VerticeP;
 import grafostp2.EstruturaDados.Lista;
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -42,6 +46,35 @@ public class BuscaProfundidade {
         return impressao;
     }
 
+    public void buscaProConexidade(int inicial, Boolean ver) {
+        VerticeP[] verP = new VerticeP[Grafos.tam];
+        verP = buscaProfundidade(verP, inicial, ver);
+        
+        ArrayList<Vertice> fim = new ArrayList<>();
+        for(int i=0; i<verP.length; i++){
+            fim.add(new Vertice(i, verP[i].getFim()));
+        } 
+        
+        Collections.sort(fim);
+        
+        for (int i = 0; i < Grafos.tam; i++) {
+            System.out.println(fim.get(i).getVer());
+            verP[i] = new VerticeP('b', 0, 0, 0);
+        }
+        
+        RainbowScale cor = new RainbowScale();
+        int cores = 255 / Grafos.tam + 10;
+        int comp;
+        tempo = 0;
+        for(int i=0 ; i<Grafos.tam; i++){
+            comp = i * cores;
+            if(verP[fim.get(i).getVer()].getCor() == 'b'){
+                visitarVerticeCon(verP, Grafos.listaT, fim.get(i).getVer(), cor.getColor(comp));
+            }
+        }
+        for(int i=0; i<Grafos.tam;i++)
+        System.out.println(i + "->" + verP[i].getInicio() + " ("+verP[i].getFim() );
+    }
     private VerticeP[] buscaProfundidade(VerticeP[] verP, int inicial, Boolean rep) {
         for (int i = 0; i < Grafos.tam; i++) {
             verP[i] = new VerticeP('b', 0, 0, 0);
@@ -81,7 +114,7 @@ public class BuscaProfundidade {
         for (int k = 0; k < tamanho; k++) {
             if (ver[lista[i].getVer(k)].getCor() == 'b') {
                 //System.out.printf("Brancos %d\n", lista[i].getVer(k));
-                visitarVertice(ver, Grafos.lista, Grafos.lista[i].getVer(k));
+                visitarVertice(ver, lista, lista[i].getVer(k));
             }
         }
         ver[i].setCor('p');
@@ -89,6 +122,22 @@ public class BuscaProfundidade {
         ver[i].setFim(tempo);
     }
 
+    private void visitarVerticeCon(VerticeP[] ver, Lista[] lista, int i, Color cor) {
+        ver[i].setCor('c');
+        tempo = tempo + 1;
+        ver[i].setInicio(tempo);
+        int tamanho = lista[i].size();
+        for (int k = 0; k < tamanho; k++) {
+            if (ver[lista[i].getVer(k)].getCor() == 'b') {
+                System.out.printf("Brancos %d\n", lista[i].getVer(k));
+                visitarVerticeCon(ver, lista, lista[i].getVer(k), cor);
+            }
+        }
+        ver[i].setCor('p');
+        Grafos.graph.getVertex().get(i).setColor(cor);
+        tempo = tempo + 1;
+        ver[i].setFim(tempo);
+    }
     private void visitarVerticeM(VerticeP[] ver, Integer[][] matriz, int i) {
         ver[i].setCor('c');
         tempo = tempo + 1;

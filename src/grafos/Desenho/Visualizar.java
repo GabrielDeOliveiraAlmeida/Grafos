@@ -52,7 +52,7 @@ public class Visualizar extends javax.swing.JPanel {
         g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
         g2.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
 
-        if (Grafos.graph != null && this.imageBuffer == null) {
+        if (graph != null && this.imageBuffer == null) {
             this.imageBuffer = new BufferedImage(graph.getSize().width + 1,
                     graph.getSize().height + 1, BufferedImage.TYPE_INT_RGB);
 
@@ -262,18 +262,14 @@ public class Visualizar extends javax.swing.JPanel {
         this.repaint();
     }
     
-    public void ordTopologica(ArrayList<VerticeP> vetor){
+    public void ordTopologica(){
         int aux = 1;
         for(Edge a : graph.edges){
             a.setTop(true);
             aux*=-1;
             a.setInv(aux);
         }
-        graph.computeLinePosition(vetor);
-        
-        cleanImage();
-        repaint();
-        
+        setGraph(graph);
     }
     
     public void setCor(){

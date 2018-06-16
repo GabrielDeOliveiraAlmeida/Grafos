@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public class Vertice {
+public class Vertice implements Comparable<Vertice>  {
 
     private int ver;
     private int peso;
@@ -38,4 +38,8 @@ public class Vertice {
         this.peso = peso;
     }
 
+    public int compareTo(Vertice ver) {
+       if(this.peso < ver.getPeso()) return 1;
+        else return -1;
+    }
 }

@@ -7,6 +7,7 @@ package grafostp2.Controlador;
 
 import grafos.Desenho.Graph;
 import grafostp2.EstruturaAuxiliares.Aresta;
+import grafostp2.EstruturaAuxiliares.Vertice;
 import grafostp2.EstruturaAuxiliares.VerticeP;
 import grafostp2.EstruturaDados.Lista;
 import grafostp2.grafos.ArvoreGeradora;
@@ -51,8 +52,8 @@ public class Controlador {
         grafos.montar();
     }
 
-    public String imprimirLista() {
-        return grafos.imprimirLista();
+    public String imprimirLista(Lista[] lista) {
+        return grafos.imprimirLista(lista);
     }
 
     public String imprimirMatriz() {
@@ -103,7 +104,15 @@ public class Controlador {
         return camB.bellman(rep, inicial);
     }
 
-    public ArrayList<VerticeP> ordTopologica(Boolean rep,int inicio){
+    public ArrayList<Vertice> ordTopologica(Boolean rep,int inicio){
         return ord.ordTopologica(rep, inicio);
+    }
+    
+    public void buscaProConexidade(int inicial, Boolean ver){
+        buscaP.buscaProConexidade(inicial, ver);
+    }
+    
+    public int[] coloracao(){
+        return grafos.coloracao();
     }
 }

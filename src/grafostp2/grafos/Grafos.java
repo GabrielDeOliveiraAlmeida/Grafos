@@ -32,7 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author gabriel
  */
 public class Grafos {
-
+    public static Lista[] listaT;
     public static Integer[][] matriz;
     public static Lista[] lista;
     public static int tam;
@@ -40,6 +40,7 @@ public class Grafos {
     public static int or;
     public static Graph graph; 
     public static Graph graphCopia;
+    public static Graph graphT;
     
     private File arquivo;
     private Scanner entrada;
@@ -83,6 +84,7 @@ public class Grafos {
                 or = entrada.nextInt();
                 tam = entrada.nextInt();
                 graph = new Graph(tam);
+                graphT = new Graph(tam);
                 graphCopia = new Graph(tam);
             }
         } catch (FileNotFoundException ex) {
@@ -119,6 +121,7 @@ public class Grafos {
     public void inicializar() {
         matriz = new Integer[tam][tam];
         lista = new Lista[tam];
+        listaT = new Lista[tam];
 
         for (int i = 0; i < tam; i++) {
             for (int j = 0; j < tam; j++) {
@@ -128,6 +131,7 @@ public class Grafos {
 
         for (int i = 0; i < tam; i++) {
             lista[i] = new Lista();
+            listaT[i] = new Lista();
         }
         montar();
         try {
@@ -147,17 +151,18 @@ public class Grafos {
 
     private void montarGrafo() {
         int numi, numj, peso;
-        Vertice ver;
+        Vertice ver1,ver2;
         Vertex verX, verY;
         Edge e;
         while (entrada.hasNextInt()) {
             numi = entrada.nextInt();
             numj = entrada.nextInt();
             peso = entrada.nextInt();
-            ver = new Vertice(numj, peso);
-            lista[numi].add(ver);
-            ver = new Vertice(numi, peso);
-            lista[numj].add(ver);
+            ver1 = new Vertice(numj, peso);
+            ver2 = new Vertice(numi, peso);
+            lista[numi].add(ver1);
+            lista[numj].add(ver2);
+
 
             verX = graph.getVertex().get(numi);
             verX.setID(numi);
@@ -174,9 +179,15 @@ public class Grafos {
         clonarGraph();
     }
 
+    public static void setGraph(Graph graph) {
+        Grafos.graph = graph;
+    }
+    
+    
+
     private void montarDigrafo() {
         int numi, numj, peso;
-        Vertice ver;
+        Vertice ver1, ver2;
         Vertex verX, verY;
         Edge e;
         while (entrada.hasNextInt()) {
@@ -190,9 +201,15 @@ public class Grafos {
             verY.setID(numj);
             e= new Edge(verX, verY, peso);    
             graph.addEdge(e);
+            graphT.addEdge(new Edge(verY, verX, peso));
             
-            ver = new Vertice(numj, peso);
-            lista[numi].add(ver);
+            ver1 = new Vertice(numj, peso);
+            ver2 = new Vertice(numi, peso);
+            
+            lista[numi].add(ver1);
+            
+            listaT[numj].add(ver2);
+            
             matriz[numi][numj] = peso;
         }
         clonarGraph();
@@ -202,7 +219,8 @@ public class Grafos {
         graphCopia.setEdges(graph.getEdges());
         graphCopia.setVertex(graph.getVertex());
     }
-    public String imprimirLista() {
+    
+    public String imprimirLista(Lista[] lista) {
         String impressao = "VérticeOrigem -> VérticeDestino(Peso da Aresta) >/\n";
         if (lista == null) {
             return "Grafo não carregado a partir do arquivo (Crtl + R)";
@@ -394,6 +412,70 @@ public class Grafos {
 
         return caminho;
 
+    }
+    
+    private int verificaAdjacencia (int v1, int v2){
+        for(int i=0;i<lista[v1].size();i++)
+            if (lista[v1].getVer(i) == v2){
+                return -1;
+            }
+        return Integer.MAX_VALUE;
+    }
+     
+     public int[] coloracao(){
+        int cores[] = new int[Grafos.tam];    //array de cores de vertices, cada posicao é um vertice, e guarda sua cor
+        
+        for (int i=0; i<cores.length; i++){ //inicializa cores
+            cores[i] = -1;
+        }
+        
+        int vMaiorGrau = verticeMaiorGrau();    //vertice com maior grau de adj
+        coloreVertice(cores, vMaiorGrau);
+        
+        return cores;
+    }
+
+    private void coloreVertice(int[] cores, int vert) {
+        cores[vert] = corApropriada(cores, vert);
+        for(int i=0; i<Grafos.tam; i++){
+            if(verificaAdjacencia(vert, i) != Integer.MAX_VALUE)
+            if(cores[i] == -1) coloreVertice(cores, i); //recursão
+        }
+    }
+    
+    private int corApropriada(int[] cores, int vert){
+        int cor = -1;
+        Boolean flag1 = true;   //do...while
+        Boolean flag2;  //adjacencias do vert
+        
+        do{
+            cor++;
+            flag2 = false;
+            for(int i=0; i<Grafos.tam && !flag2; i++) //verifica as adjacencias do vert pra ver se alguma tem
+                if(verificaAdjacencia(vert, i) != Integer.MAX_VALUE)    //cor igual a dele
+                    if(cores[i] == cor)                             
+                        flag2 = true;
+            
+                if(!flag2) flag1 = false;   //se não tiver, aquela cor serve
+        }while(flag1);
+             
+        return cor;
+    }
+
+    private int verticeMaiorGrau(){
+        int vert = 0;
+        int maior = Integer.MIN_VALUE;
+        for (int i=0; i<Grafos.tam; i++){
+            int cont = 0;
+            for(int j=0; j<Grafos.tam; j++)
+                if(verificaAdjacencia(i, j) != Integer.MAX_VALUE)
+                    cont++;
+            if (cont > maior){
+                maior = cont;
+                vert = i;
+            }
+        }
+        return vert;
     }
 
 
