@@ -69,7 +69,7 @@ public class Graph {
     public void computeLinePosition(ArrayList<Vertice> vetor){
         isLine = true;
         int deslocX = 100;
-        int deslocY = 100;
+        int deslocY = 170;
         int tam = vetor.size();
         for(int i =0 ;i<tam; i++){
             for(Vertex v : vertex){

@@ -28,6 +28,12 @@ public class BuscaProfundidade {
         tempo = 0;
         if (rep) {
             visitarVerticeCaminho(verP, Grafos.lista, inicio, pai);
+            for (int i = 0; i < Grafos.tam; i++) {
+                if (verP[i].getCor() == 'b') {
+                    visitarVerticeCaminho(verP, Grafos.lista, i, pai);
+                }
+            }
+            
         } else {
             visitarVerticeMCaminho(verP, Grafos.matriz, inicio, pai);
         }

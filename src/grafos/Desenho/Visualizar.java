@@ -81,6 +81,18 @@ public class Visualizar extends javax.swing.JPanel {
             this.repaint();
         }
     }
+    
+    public void setGraph2(Graph graph) {
+            if (graph != null) {
+                this.setPreferredSize(new Dimension(graph.getSize().width * 4,
+                        graph.getSize().height * 4));
+                this.setSize(new Dimension(graph.getSize().width * 4,
+                        graph.getSize().height * 4  + 150));
+
+                this.cleanImage();
+                this.repaint();
+            }
+        }
 
     public Vertex getMarkedVertex() {
         return markedVertex;
@@ -269,7 +281,13 @@ public class Visualizar extends javax.swing.JPanel {
             aux*=-1;
             a.setInv(aux);
         }
-        setGraph(graph);
+        //setGraph2(graph);
+    }
+    
+    public void deseta(){
+        for(Edge a : graph.edges){
+            a.setTop(false);
+        }
     }
     
     public void setCor(){

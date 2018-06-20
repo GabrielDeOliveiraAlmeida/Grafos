@@ -5,6 +5,7 @@
  */
 package grafostp2.UI;
 
+import grafos.Desenho.Edge;
 import grafos.Desenho.Visualizar;
 import grafostp2.Controlador.Controlador;
 import grafostp2.Desenho.Color.RainbowScale;
@@ -12,6 +13,7 @@ import grafostp2.EstruturaAuxiliares.Aresta;
 import grafostp2.EstruturaDados.Lista;
 import grafostp2.grafos.Grafos;
 import grafostp2.EstruturaAuxiliares.Vertice;
+import static grafostp2.grafos.Grafos.graph;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -1084,6 +1086,12 @@ public class GrafosTP1UI extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         inicial();
+        view.deseta();
+        for(int i=0;i<Grafos.graph.getVertex().size();i++){
+            if(!Grafos.graph.getVertex().get(i).isSelected()){
+                Grafos.graph.getVertex().get(i).setSelected(true);
+                break;}
+        }
         if(Grafos.graph.getIsLine())
             Grafos.graph.computeCircledPosition(150);
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -1111,12 +1119,13 @@ public class GrafosTP1UI extends javax.swing.JFrame {
             resetCampo(entradaOrdT);
             return;
         }
-        Grafos.graph.getVertex().get(inicial).setSelected(false);
-        ArrayList<Vertice> vert = control.ordTopologica(representacao, inicial);
-        Grafos.graph.computeLinePosition(vert);
-        view.ordTopologica();
-        this.view.cleanImage();
-        this.view.repaint();
+            Grafos.graph.getVertex().get(inicial).setSelected(false);
+            ArrayList<Vertice> vert = control.ordTopologica(representacao, inicial);
+            Grafos.graph.computeLinePosition(vert);
+            view.ordTopologica();  
+            this.view.setGraph2(Grafos.graph);
+            this.view.cleanImage();
+            this.view.repaint();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void entradaOrdTFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_entradaOrdTFocusGained

@@ -52,30 +52,30 @@ public class Edge {
         }
 
         if (top) {
-            System.out.println("Topologica");
             int x, y;
             int h, distancia;
-            if(inv == 1) h = 170;
-            else h = 300;
+            if(inv == 1) h = 120;
+            else h = 220;
             x = (int) source.getX();
             y = (int) target.getX();
             distancia = y - x;
-
+            this.color = java.awt.Color.BLACK;
+            g2.setColor(this.color);
             if (distancia == 100) {
-                h = 200;
-                g2.drawLine(((int) source.getX()), ((int) source.getY()),
-                        ((int) target.getX()), ((int) target.getY()));
-            } else {
-                g2.drawArc((int) x, 150, (int) distancia, 140, 0, inv*180);
+                h = 170;
+                g2.drawLine(((int) this.source.getX()), ((int) this.source.getY()),
+                    ((int) this.target.getX()), ((int) this.target.getY()));
+           } else {
+                g2.drawArc((int) x, 110, (int) distancia, 100, 0, inv*180);
             }
 
+            g2.setFont(new Font(("Verdana"), Font.BOLD, 14));
             g2.drawString(Integer.toString(peso), (y + x) / 2, h);
             
         } else {
             this.color = java.awt.Color.BLACK;
-
             g2.setColor(this.color);
-
+            
             g2.drawLine(((int) this.source.getX()), ((int) this.source.getY()),
                     ((int) this.target.getX()), ((int) this.target.getY()));
             g2.setStroke(new java.awt.BasicStroke(1.0f));
